@@ -1,15 +1,18 @@
 package model;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Set;
 
 @Getter
 @AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class Space {
     private final Integer capacity;
-    private final String type;
     private Set<ScheduleRange> reservations;
 
     public boolean isAvailable(ScheduleRange range) {

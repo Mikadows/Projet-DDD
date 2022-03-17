@@ -1,13 +1,17 @@
 package model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Getter
 @RequiredArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class ScheduleRange {
     private final LocalDateTime start;
     private final Duration duration;
