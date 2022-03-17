@@ -6,6 +6,5 @@ public class CreateEventTest {
 
     @Test
     public void create_event_with_valid_data() {
-        // TODO
     }
 }

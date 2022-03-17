@@ -7,6 +7,6 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-class EventID {
+public class EventID {
     private final UUID eventID;
 }
