@@ -1,4 +1,4 @@
-# Projet-DDD
+# DDD-Project
 DDD Projet. Mob programming.
 
 ## Launch tests
