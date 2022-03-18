@@ -18,14 +18,14 @@ public class CreateEventTest {
     private Animators animators;
     private Spaces spaces;
     private Events events;
-    private CreateEvent employe;
+    private CreateEvent employee;
 
     @BeforeEach
     public void init() {
         animators = new FakeAnimators();
         spaces = new FakeSpaces();
         events = new FakeEvents();
-        employe = new CreateEvent(animators, spaces, events);
+        employee = new CreateEvent(animators, spaces, events);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class CreateEventTest {
                 UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa80eb85c71"));
 
         ThrowingCallable createEvent =
-                () -> employe.create(fakeEvent);
+                () -> employee.create(fakeEvent);
 
         assertThatExceptionOfType(EventDateIsPastException.class).isThrownBy(createEvent);
 
@@ -50,7 +50,7 @@ public class CreateEventTest {
                 "Aymeric Anniversary", LocalDateTime.now().plusDays(10),
                 Duration.ofDays(2), UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa90eb85c71"));
         ThrowingCallable createEvent =
-                () -> employe.create(fakeEvent);
+                () -> employee.create(fakeEvent);
 
         assertThatExceptionOfType(AnySpaceFoundException.class).isThrownBy(createEvent);
 
@@ -62,7 +62,7 @@ public class CreateEventTest {
                 "Aymeric Anniversary", LocalDateTime.now().plusDays(5),
                 Duration.ofDays(2), UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa80eb85c71"));
         ThrowingCallable createEvent =
-                () -> employe.create(fakeEvent);
+                () -> employee.create(fakeEvent);
 
         assertThatExceptionOfType(AnimatorNotAvailableException.class).isThrownBy(createEvent);
 
@@ -74,7 +74,7 @@ public class CreateEventTest {
                 "Aymeric Anniversary", LocalDateTime.now().plusDays(8),
                 Duration.ofDays(2), UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa80eb85c71"));
         ThrowingCallable createEvent =
-                () -> employe.create(fakeEvent);
+                () -> employee.create(fakeEvent);
 
         assertThatExceptionOfType(AnyAnimatorFoundException.class).isThrownBy(createEvent);
     }
@@ -86,7 +86,7 @@ public class CreateEventTest {
                 Duration.ofHours(3), UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa80eb85c71"));
 
         ThrowingCallable createEvent =
-                () -> employe.create(fakeEvent);
+                () -> employee.create(fakeEvent);
 
         assertThatExceptionOfType(SpaceNotAvailableException.class).isThrownBy(createEvent);
     }
@@ -97,7 +97,7 @@ public class CreateEventTest {
                 "Aymeric Anniversary", LocalDateTime.now().plusDays(25),
                 Duration.ofHours(1), UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa80eb85c71"));
 
-        Assertions.assertThatCode(() -> employe.create(fakeEvent)).doesNotThrowAnyException();
+        Assertions.assertThatCode(() -> employee.create(fakeEvent)).doesNotThrowAnyException();
     }
 
     @Test
@@ -110,9 +110,9 @@ public class CreateEventTest {
                 "Aymeric Anniversary", LocalDateTime.now().plusDays(25),
                 Duration.ofHours(1), UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa70eb85c71"));
 
-        Assertions.assertThatCode(() -> employe.create(fakeEvent)).doesNotThrowAnyException();
+        Assertions.assertThatCode(() -> employee.create(fakeEvent)).doesNotThrowAnyException();
         ThrowingCallable createEvent =
-                () -> employe.create(fakeEvent2);
+                () -> employee.create(fakeEvent2);
         assertThatExceptionOfType(AnimatorNotAvailableException.class).isThrownBy(createEvent);
     }
 
@@ -122,14 +122,14 @@ public class CreateEventTest {
                 "Aymeric Anniversary", LocalDateTime.now().plusDays(25),
                 Duration.ofHours(1), UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa80eb85c71"));
 
-        Assertions.assertThatCode(() -> employe.create(fakeEvent)).doesNotThrowAnyException();
+        Assertions.assertThatCode(() -> employee.create(fakeEvent)).doesNotThrowAnyException();
 
         CreateEventRequestDTO fakeEvent2 = new CreateEventRequestDTO(UUID.fromString("091b9ea5-b4ab-46cf-9e53-dee70eb85c71"),
                 "Aymeric Anniversary", LocalDateTime.now().plusDays(25),
                 Duration.ofHours(1), UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa80eb85c71"));
 
         ThrowingCallable createEvent =
-                () -> employe.create(fakeEvent2);
+                () -> employee.create(fakeEvent2);
         assertThatExceptionOfType(SpaceNotAvailableException.class).isThrownBy(createEvent);
     }
 }
