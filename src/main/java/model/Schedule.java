@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class ScheduleRange {
+public class Schedule {
     private final LocalDateTime start;
     private final Duration duration;
 
@@ -21,8 +21,8 @@ public class ScheduleRange {
         return start.plus(duration);
     }
 
-    public boolean isOverlapping(ScheduleRange other) {
-        return !(other.getStart().isAfter(getEnd()) || other.getEnd().isBefore(getStart()));
+    public boolean isOverlapping(Schedule schedule) {
+        return !(schedule.getStart().isAfter(getEnd()) || schedule.getEnd().isBefore(getStart()));
     }
 
     public boolean isPast() {
