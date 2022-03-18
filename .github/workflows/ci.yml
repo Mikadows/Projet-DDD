@@ -1,0 +1,22 @@
+name: POC sonarqube
+
+on:
+  push:
+    branches: [ ci ]
+
+jobs:
+  build-and-sonar:
+    runs-on: ubuntu-latest
+
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      - name: Build with Maven
+        run: |
+          mvn clean package
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONARQUBE_HOST }}
