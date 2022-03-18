@@ -1,13 +1,16 @@
 package model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
 import java.util.UUID;
 
-@Getter
-@RequiredArgsConstructor
 public class EventID {
     private final UUID eventId;
+
+    public EventID(UUID eventId) {
+        this.eventId = eventId;
+    }
+
+    public UUID getEventId() {
+        return eventId;
+    }
 }
 

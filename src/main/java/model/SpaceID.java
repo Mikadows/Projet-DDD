@@ -1,13 +1,16 @@
 package model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
 import java.util.UUID;
 
-@Getter
-@RequiredArgsConstructor
 public class SpaceID {
     private final UUID spaceID;
+
+    public SpaceID(UUID spaceID) {
+        this.spaceID = spaceID;
+    }
+
+    public UUID getSpaceID() {
+        return spaceID;
+    }
 }
 

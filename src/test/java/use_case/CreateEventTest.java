@@ -1,11 +1,13 @@
 package use_case;
 
 import infra.CreateEventRequestDTO;
-import model.*;
+import model.Animators;
+import model.Events;
+import model.Spaces;
 import org.assertj.core.api.Assertions;
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import use_case.exception.*;
 
 import java.time.Duration;

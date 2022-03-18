@@ -3,10 +3,8 @@ package use_case;
 import infra.CreateEventRequestDTO;
 import lombok.RequiredArgsConstructor;
 import model.*;
-import use_case.exception.*;
-
-import java.util.ArrayList;
-import java.util.UUID;
+import use_case.exception.AnyAnimatorFoundException;
+import use_case.exception.AnySpaceFoundException;
 
 @RequiredArgsConstructor
 public class CreateEvent {

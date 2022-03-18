@@ -1,22 +1,18 @@
 package model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import use_case.exception.EventDateIsPastException;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-@Getter
-@RequiredArgsConstructor
-@EqualsAndHashCode
-@ToString
 public class Schedule {
     private final LocalDateTime start;
     private final Duration duration;
 
+    public Schedule(LocalDateTime start, Duration duration) {
+        this.start = start;
+        this.duration = duration;
+    }
 
     public LocalDateTime getEnd() {
         return start.plus(duration);
@@ -30,6 +26,14 @@ public class Schedule {
         if(LocalDateTime.now().isAfter(getEnd())){
             throw new EventDateIsPastException();
         }
+    }
+
+    public LocalDateTime getStart() {
+        return start;
+    }
+
+    public Duration getDuration() {
+        return duration;
     }
 
 }

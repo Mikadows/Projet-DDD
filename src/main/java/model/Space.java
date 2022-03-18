@@ -1,23 +1,19 @@
 package model;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
 import use_case.exception.SpaceNotAvailableException;
 
 import java.util.Set;
-import java.util.UUID;
 
-@Getter
-@AllArgsConstructor
-@EqualsAndHashCode
-@ToString
 public class Space {
     private final SpaceID id;
     private final Integer capacity;
     private Set<Schedule> reservations;
-    private Location location;
+
+    public Space(SpaceID id, Integer capacity, Set<Schedule> reservations) {
+        this.id = id;
+        this.capacity = capacity;
+        this.reservations = reservations;
+    }
 
     public void isAvailable(Schedule range) {
         range.isPast();
@@ -34,5 +30,15 @@ public class Space {
         reservations.add(scheduleRange);
     }
 
+    public SpaceID getId() {
+        return id;
+    }
 
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public Set<Schedule> getReservations() {
+        return reservations;
+    }
 }

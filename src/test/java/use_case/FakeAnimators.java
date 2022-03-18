@@ -1,10 +1,16 @@
 package use_case;
 
-import model.*;
+import model.Animator;
+import model.AnimatorID;
+import model.Animators;
+import model.Schedule;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
 public class FakeAnimators implements Animators {
     private final Set<Animator> animators;
