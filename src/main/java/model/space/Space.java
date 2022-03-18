@@ -1,6 +1,6 @@
 package model.space;
 
-import model.Schedule;
+import model.schedule.Schedule;
 import use_case.exception.OverlappingScheduleException;
 import use_case.exception.SpaceNotAvailableException;
 

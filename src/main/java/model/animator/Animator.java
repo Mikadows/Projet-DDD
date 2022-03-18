@@ -1,9 +1,8 @@
 package model.animator;
 
-import model.Schedule;
+import model.schedule.Schedule;
 import use_case.exception.AnimatorNotAvailableException;
 import use_case.exception.OverlappingScheduleException;
-import use_case.exception.SpaceNotAvailableException;
 
 import java.util.Set;
 

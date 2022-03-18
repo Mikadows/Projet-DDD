@@ -1,6 +1,6 @@
 package use_case;
 
-import model.Schedule;
+import model.schedule.Schedule;
 import model.animator.Animator;
 import model.animator.AnimatorID;
 import model.animator.Animators;

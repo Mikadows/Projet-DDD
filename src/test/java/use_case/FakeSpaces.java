@@ -1,6 +1,6 @@
 package use_case;
 
-import model.Schedule;
+import model.schedule.Schedule;
 import model.space.Space;
 import model.space.SpaceID;
 import model.space.Spaces;

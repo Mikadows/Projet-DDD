@@ -1,6 +1,6 @@
 package model.event;
 
-import model.Schedule;
+import model.schedule.Schedule;
 import model.animator.Animator;
 import model.space.Space;
 

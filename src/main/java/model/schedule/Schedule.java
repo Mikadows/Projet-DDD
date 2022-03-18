@@ -1,4 +1,4 @@
-package model;
+package model.schedule;
 
 import use_case.exception.EventDateIsPastException;
 import use_case.exception.OverlappingScheduleException;

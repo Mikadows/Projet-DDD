@@ -1,6 +1,6 @@
 package model.space;
 
-import model.Schedule;
+import model.schedule.Schedule;
 
 import java.util.Optional;
 import java.util.UUID;
