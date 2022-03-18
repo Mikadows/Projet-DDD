@@ -5,6 +5,7 @@ import use_case.exception.OverlappingScheduleException;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 public class Schedule {
@@ -45,8 +46,14 @@ public class Schedule {
         return start;
     }
 
-    public Duration getDuration() {
-        return duration;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Schedule schedule = (Schedule) o;
+        return Objects.equals(start, schedule.start) && Objects.equals(duration, schedule.duration);
     }
 
+    public int hashCode() {
+        return Objects.hash(start, duration);
+    }
 }

@@ -4,6 +4,7 @@ import model.schedule.Schedule;
 import use_case.exception.OverlappingScheduleException;
 import use_case.exception.SpaceNotAvailableException;
 
+import java.util.Objects;
 import java.util.Set;
 
 public class Space {
@@ -27,5 +28,16 @@ public class Space {
 
     public SpaceID getId() {
         return id;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Space space = (Space) o;
+        return id.equals(space.id) && Objects.equals(reservations, space.reservations);
+    }
+
+    public int hashCode() {
+        return Objects.hash(id, reservations);
     }
 }

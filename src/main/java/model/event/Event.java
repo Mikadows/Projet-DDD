@@ -6,6 +6,7 @@ import model.space.Space;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Event {
@@ -41,5 +42,14 @@ public class Event {
         return schedule;
     }
 
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return Objects.equals(id, event.id);
+    }
 
+    public int hashCode() {
+        return Objects.hash(id, animator, schedule, status, space);
+    }
 }

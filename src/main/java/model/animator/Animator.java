@@ -4,6 +4,7 @@ import model.schedule.Schedule;
 import use_case.exception.AnimatorNotAvailableException;
 import use_case.exception.OverlappingScheduleException;
 
+import java.util.Objects;
 import java.util.Set;
 
 public class Animator {
@@ -31,5 +32,16 @@ public class Animator {
 
     public Set<Schedule> getBusySchedules() {
         return busySchedules;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animator animator = (Animator) o;
+        return id.equals(animator.id);
+    }
+
+    public int hashCode() {
+        return Objects.hash(id, busySchedules);
     }
 }
