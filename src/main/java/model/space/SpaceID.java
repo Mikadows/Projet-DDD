@@ -1,5 +1,6 @@
 package model.space;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class SpaceID {
@@ -11,6 +12,17 @@ public class SpaceID {
 
     public UUID getSpaceID() {
         return spaceID;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SpaceID spaceID1 = (SpaceID) o;
+        return Objects.equals(spaceID, spaceID1.spaceID);
+    }
+
+    public int hashCode() {
+        return Objects.hash(spaceID);
     }
 }
 

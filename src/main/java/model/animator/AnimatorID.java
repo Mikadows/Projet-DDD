@@ -1,5 +1,6 @@
 package model.animator;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class AnimatorID {
@@ -11,6 +12,17 @@ public class AnimatorID {
 
     public UUID getAnimatorId() {
         return animatorId;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AnimatorID that = (AnimatorID) o;
+        return Objects.equals(animatorId, that.animatorId);
+    }
+
+    public int hashCode() {
+        return Objects.hash(animatorId);
     }
 }
 
