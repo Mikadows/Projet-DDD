@@ -1,17 +1,20 @@
 package use_case;
 
 import infra.CreateEventRequestDTO;
-import lombok.RequiredArgsConstructor;
 import model.*;
 import use_case.exception.AnyAnimatorFoundException;
 import use_case.exception.AnySpaceFoundException;
 
-@RequiredArgsConstructor
 public class CreateEvent {
     private final Animators animators;
     private final Spaces spaces;
     private final Events events;
 
+    public CreateEvent(Animators animators, Spaces spaces, Events events) {
+        this.animators = animators;
+        this.spaces = spaces;
+        this.events = events;
+    }
 
     public Event create(CreateEventRequestDTO createEventRequestDTO) {
         Animator animator = animators.findById(createEventRequestDTO.getAnimatorId())
