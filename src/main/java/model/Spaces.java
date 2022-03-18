@@ -6,5 +6,5 @@ import java.util.UUID;
 public interface Spaces {
 
     Optional<Space> findById(UUID id);
-    void bookAvailability(Space space, Schedule schedule);
+    void book(Space space, Schedule schedule);
 }

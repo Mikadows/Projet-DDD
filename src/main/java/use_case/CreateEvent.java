@@ -3,6 +3,7 @@ package use_case;
 import infra.CreateEventRequestDTO;
 import lombok.RequiredArgsConstructor;
 import model.*;
+import use_case.exception.*;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -22,8 +23,8 @@ public class CreateEvent {
 
         Event event = getEvent(animator, space, createEventRequestDTO);
 
-        animators.bookAvailability(event.getAnimator(), event.getSchedule());
-        spaces.bookAvailability(space, event.getSchedule());
+        animators.book(event.getAnimator(), event.getSchedule());
+        spaces.book(space, event.getSchedule());
         events.save(event);
 
         return event;
@@ -31,18 +32,6 @@ public class CreateEvent {
 
     private Event getEvent(Animator animator, Space space, CreateEventRequestDTO eventRequestDTO) {
         Schedule eventSchedule = new Schedule(eventRequestDTO.getStartDateTime(), eventRequestDTO.getDuration());
-
-        if (eventSchedule.isPast()) {
-            throw new EventDateIsPastException();
-        }
-
-        if (!animator.isAvailable(eventSchedule)) {
-            throw new AnimatorNotAvailableException();
-        }
-
-        if (!space.isAvailable(eventSchedule)) {
-            throw new SpaceNotAvailableException();
-        }
 
         animator.book(eventSchedule);
         space.book(eventSchedule);

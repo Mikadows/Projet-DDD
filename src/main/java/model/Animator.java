@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import use_case.exception.AnimatorNotAvailableException;
 
 import java.util.Set;
 import java.util.UUID;
@@ -13,25 +14,21 @@ import java.util.UUID;
 @EqualsAndHashCode
 @ToString
 public class Animator {
-    private final UUID id;
-    private Set<Schedule> availabilities;
+    private final AnimatorID id;
+    private Set<Schedule> busySchedules;
 
-    public boolean isAvailable(Schedule range) {
-        if (range.isPast()) return false;
+    public void isAvailable(Schedule range) {
+        range.isPast();
 
-        boolean isAvailable = true;
-
-        for (Schedule availability : availabilities) {
-            if (availability.isOverlapping(range)) {
-                isAvailable = false;
-                break;
+        for (Schedule booked : busySchedules) {
+            if (booked.isOverlapping(range)) {
+                throw new AnimatorNotAvailableException();
             }
         }
-
-        return isAvailable;
     }
 
     public void book(Schedule scheduleRange) {
-        availabilities.add(scheduleRange);
+        isAvailable(scheduleRange);
+        busySchedules.add(scheduleRange);
     }
 }

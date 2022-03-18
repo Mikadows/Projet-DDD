@@ -1,4 +1,4 @@
-package use_case;
+package use_case.exception;
 
 public class AnyAnimatorFoundException extends RuntimeException {
 }
