@@ -2,6 +2,8 @@ package model.animator;
 
 import model.Schedule;
 import use_case.exception.AnimatorNotAvailableException;
+import use_case.exception.OverlappingScheduleException;
+import use_case.exception.SpaceNotAvailableException;
 
 import java.util.Set;
 
@@ -14,19 +16,14 @@ public class Animator {
         this.busySchedules = busySchedules;
     }
 
-    public void isAvailable(Schedule schedule) {
-        schedule.checkDateAnterior();
-
-        for (Schedule booked : busySchedules) {
-            if (booked.isOverlapping(schedule)) {
-                throw new AnimatorNotAvailableException();
-            }
+    public void book(Schedule schedule){
+        try {
+            schedule.checkAvailability(busySchedules);
+            busySchedules.add(schedule);
         }
-    }
-
-    public void book(Schedule schedule) {
-        isAvailable(schedule);
-        busySchedules.add(schedule);
+        catch (OverlappingScheduleException exception){
+            throw new AnimatorNotAvailableException();
+        }
     }
 
     public AnimatorID getId() {

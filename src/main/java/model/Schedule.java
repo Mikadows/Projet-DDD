@@ -1,9 +1,11 @@
 package model;
 
 import use_case.exception.EventDateIsPastException;
+import use_case.exception.OverlappingScheduleException;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public class Schedule {
     private final LocalDateTime start;
@@ -26,6 +28,16 @@ public class Schedule {
     public void checkDateAnterior() {
         if(LocalDateTime.now().isAfter(getEnd())){
             throw new EventDateIsPastException();
+        }
+    }
+
+    public void checkAvailability(Set<Schedule> schedules) throws OverlappingScheduleException {
+        checkDateAnterior();
+
+        for (Schedule schedule : schedules) {
+            if (isOverlapping(schedule)) {
+                throw new OverlappingScheduleException();
+            }
         }
     }
 
