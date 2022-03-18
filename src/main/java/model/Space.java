@@ -13,14 +13,15 @@ import java.util.Set;
 @ToString
 public class Space {
     private final Integer capacity;
-    private Set<ScheduleRange> reservations;
+    private Set<Schedule> reservations;
+//    private Location location; maybe ??
 
-    public boolean isAvailable(ScheduleRange range) {
+    public boolean isAvailable(Schedule range) {
         if(range.isPast()) return false;
 
         boolean isAvailable = true;
 
-        for (ScheduleRange reservation : reservations) {
+        for (Schedule reservation : reservations) {
             if (reservation.isOverlapping(range)) {
                 isAvailable = false;
                 break;
@@ -30,7 +31,7 @@ public class Space {
         return isAvailable;
     }
 
-    public void book(ScheduleRange scheduleRange) {
+    public void book(Schedule scheduleRange) {
         reservations.add(scheduleRange);
     }
 }
