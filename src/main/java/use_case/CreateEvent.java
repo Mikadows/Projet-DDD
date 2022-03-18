@@ -1,56 +1,57 @@
 package use_case;
 
 import infra.CreateEventRequestDTO;
+import lombok.RequiredArgsConstructor;
 import model.*;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 public class CreateEvent {
     private final Animators animators;
     private final Spaces spaces;
     private final Events events;
 
 
-    public CreateEvent(Animators animators, Spaces spaces, Events events) {
-        this.animators = animators;
-        this.spaces = spaces;
-        this.events = events;
+    public Event create(CreateEventRequestDTO createEventRequestDTO) {
+        Animator animator = animators.findById(createEventRequestDTO.getAnimatorId())
+                .orElseThrow(AnyAnimatorFoundException::new);
+        Space space = spaces.findById(createEventRequestDTO.getSpaceID())
+                .orElseThrow(AnySpaceFoundException::new);
+
+        Event event = getEvent(animator, space, createEventRequestDTO);
+
+        animators.bookAvailability(event.getAnimator(), event.getSchedule());
+        spaces.bookAvailability(event.getSpace(), event.getSchedule());
+        events.save(event);
+
+        return event;
     }
 
-    public Event create(CreateEventRequestDTO createEventRequestDTO) {
-        // Get Animator from id
-        Animator animator = animators.findById(createEventRequestDTO.getAnimatorId());
-        // Get Space from id
-        Space space = spaces.findById(createEventRequestDTO.getSpaceID());
+    private Event getEvent(Animator animator, Space space, CreateEventRequestDTO eventRequestDTO) {
+        Schedule eventSchedule = new Schedule(eventRequestDTO.getStartDateTime(), eventRequestDTO.getDuration());
 
-        // Create ScheduleRange
-        ScheduleRange scheduleRange = new ScheduleRange(
-                createEventRequestDTO.getStartDateTime(), createEventRequestDTO.getDuration());
-
-        // Is the animator available ?
-        if (animator.isAvailable(scheduleRange)) {
-            // Book the animator
-            animator.book(scheduleRange);
-        }
-        // Is the space available ?
-        if (space.isAvailable(scheduleRange)) {
-            // Book the space
-            space.book(scheduleRange);
+        if (eventSchedule.isPast()) {
+            throw new EventDateIsPastException();
         }
 
-        // Create event entity
-        Event event = Event.builder()
+        if (!animator.isAvailable(eventSchedule)) {
+            throw new AnimatorNotAvailableException();
+        }
+
+        if (!space.isAvailable(eventSchedule)) {
+            throw new SpaceNotAvailableException();
+        }
+
+        return Event.builder()
                 .id(new EventID(UUID.randomUUID()))
                 .animator(animator)
                 .isPublished(false)
                 .space(space)
-                .title(createEventRequestDTO.getTitle())
+                .schedule(eventSchedule)
+                .title(eventRequestDTO.getTitle())
                 .participants(new ArrayList<>())
                 .build();
-
-        // save event
-        events.save(event);
-        return event;
     }
 }
