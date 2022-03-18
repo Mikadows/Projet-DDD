@@ -1,4 +1,8 @@
-package model;
+package model.event;
+
+import model.Schedule;
+import model.animator.Animator;
+import model.space.Space;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

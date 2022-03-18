@@ -1,9 +1,9 @@
 package use_case;
 
 import infra.CreateEventRequestDTO;
-import model.Animators;
-import model.Events;
-import model.Spaces;
+import model.animator.Animators;
+import model.event.Events;
+import model.space.Spaces;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.BeforeEach;

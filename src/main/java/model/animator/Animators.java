@@ -1,4 +1,6 @@
-package model;
+package model.animator;
+
+import model.Schedule;
 
 import java.util.Optional;
 import java.util.UUID;

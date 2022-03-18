@@ -1,5 +1,6 @@
-package model;
+package model.animator;
 
+import model.Schedule;
 import use_case.exception.AnimatorNotAvailableException;
 
 import java.util.Set;

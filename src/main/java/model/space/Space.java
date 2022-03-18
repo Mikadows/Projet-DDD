@@ -1,5 +1,6 @@
-package model;
+package model.space;
 
+import model.Schedule;
 import use_case.exception.SpaceNotAvailableException;
 
 import java.util.Set;

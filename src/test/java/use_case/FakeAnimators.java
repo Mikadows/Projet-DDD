@@ -1,9 +1,9 @@
 package use_case;
 
-import model.Animator;
-import model.AnimatorID;
-import model.Animators;
 import model.Schedule;
+import model.animator.Animator;
+import model.animator.AnimatorID;
+import model.animator.Animators;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

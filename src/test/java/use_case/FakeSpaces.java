@@ -1,9 +1,9 @@
 package use_case;
 
 import model.Schedule;
-import model.Space;
-import model.SpaceID;
-import model.Spaces;
+import model.space.Space;
+import model.space.SpaceID;
+import model.space.Spaces;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

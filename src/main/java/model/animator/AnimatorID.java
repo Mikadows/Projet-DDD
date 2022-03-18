@@ -1,4 +1,4 @@
-package model;
+package model.animator;
 
 import java.util.UUID;
 

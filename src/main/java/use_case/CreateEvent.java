@@ -1,7 +1,12 @@
 package use_case;
 
 import infra.CreateEventRequestDTO;
-import model.*;
+import model.animator.Animator;
+import model.animator.Animators;
+import model.event.Event;
+import model.event.Events;
+import model.space.Space;
+import model.space.Spaces;
 import use_case.exception.AnyAnimatorFoundException;
 import use_case.exception.AnySpaceFoundException;
 
