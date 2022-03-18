@@ -13,16 +13,16 @@ import java.util.UUID;
 @EqualsAndHashCode
 @ToString
 public class Animator {
-    private final UUID animatorId;
-    private Set<ScheduleRange> bookedScheduleRanges;
+    private final UUID id;
+    private Set<Schedule> availabilities;
 
-    public boolean isAvailable(ScheduleRange range) {
-        if(range.isPast()) return false;
+    public boolean isAvailable(Schedule range) {
+        if (range.isPast()) return false;
 
         boolean isAvailable = true;
 
-        for (ScheduleRange reservation : bookedScheduleRanges) {
-            if (reservation.isOverlapping(range)) {
+        for (Schedule availability : availabilities) {
+            if (availability.isOverlapping(range)) {
                 isAvailable = false;
                 break;
             }
@@ -31,7 +31,7 @@ public class Animator {
         return isAvailable;
     }
 
-    public void book(ScheduleRange scheduleRange) {
-        bookedScheduleRanges.add(scheduleRange);
+    public void book(Schedule scheduleRange) {
+        availabilities.add(scheduleRange);
     }
 }
