@@ -17,13 +17,13 @@ public class FakeSpaces implements Spaces {
 
     public FakeSpaces() {
         spaces = new HashSet<>();
-        spaces.add(new Space(new SpaceID(UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa70eb85c71")),5,
+        spaces.add(new Space(new SpaceID(UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa70eb85c71")),
                 new HashSet<>()));
         Set<Schedule> scheduleRanges = new HashSet<>();
         scheduleRanges.add(new Schedule(LocalDateTime.now().plusDays(10), Duration.ofHours(1)));
         scheduleRanges.add(new Schedule(LocalDateTime.now().plusDays(15), Duration.ofHours(1)));
         scheduleRanges.add(new Schedule(LocalDateTime.now().plusDays(20), Duration.ofHours(1)));
-        spaces.add(new Space(new SpaceID(UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa80eb85c71")), 6, scheduleRanges));
+        spaces.add(new Space(new SpaceID(UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa80eb85c71")), scheduleRanges));
     }
 
     public Optional<Space> findById(UUID id) {

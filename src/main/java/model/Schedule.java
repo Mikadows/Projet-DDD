@@ -19,10 +19,11 @@ public class Schedule {
     }
 
     public boolean isOverlapping(Schedule schedule) {
-        return !(schedule.getStart().isAfter(getEnd()) || schedule.getEnd().isBefore(getStart()));
+        return !(schedule.getStart().isAfter(getEnd())
+                || schedule.getEnd().isBefore(getStart()));
     }
 
-    public void isPast() {
+    public void checkDateAnterior() {
         if(LocalDateTime.now().isAfter(getEnd())){
             throw new EventDateIsPastException();
         }

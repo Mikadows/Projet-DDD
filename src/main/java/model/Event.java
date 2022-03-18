@@ -1,26 +1,24 @@
 package model;
 
-import infra.CreateEventRequestDTO;
-
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Event {
-    private EventID id;
-    private Animator animator;
-    private String title;
-    private Schedule schedule;
-    private Space space;
+    private final EventID id;
+    private final Animator animator;
+    private final Schedule schedule;
+    private final Space space;
 
 
-    public Event(Animator animator, Space space, CreateEventRequestDTO eventRequestDTO) {
-        Schedule eventSchedule = new Schedule(eventRequestDTO.getStartDateTime(), eventRequestDTO.getDuration());
+    public Event(Animator animator, Space space, LocalDateTime startDateTime, Duration duration) {
+        Schedule eventSchedule = new Schedule(startDateTime, duration);
 
         animator.book(eventSchedule);
         space.book(eventSchedule);
 
         this.id = new EventID(UUID.randomUUID());
         this.animator = animator;
-        this.title = eventRequestDTO.getTitle();
         this.schedule = eventSchedule;
         this.space = space;
     }
@@ -31,10 +29,6 @@ public class Event {
 
     public Animator getAnimator() {
         return animator;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public Schedule getSchedule() {

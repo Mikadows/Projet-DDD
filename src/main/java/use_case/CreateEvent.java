@@ -22,7 +22,8 @@ public class CreateEvent {
         Space space = spaces.findById(createEventRequestDTO.getSpaceId())
                 .orElseThrow(AnySpaceFoundException::new);
 
-        Event event = new Event(animator, space, createEventRequestDTO);
+        Event event = new Event(animator, space,
+                createEventRequestDTO.getStartDateTime(), createEventRequestDTO.getDuration());
 
         animators.book(event.getAnimator(), event.getSchedule());
         spaces.book(space, event.getSchedule());

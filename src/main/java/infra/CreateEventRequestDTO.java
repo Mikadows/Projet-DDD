@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class CreateEventRequestDTO {
-    private UUID animatorId;
-    private String title;
-    private LocalDateTime startDateTime;
-    private Duration duration;
-    private UUID spaceId;
+    private final UUID animatorId;
+    private final String title;
+    private final LocalDateTime startDateTime;
+    private final Duration duration;
+    private final UUID spaceId;
 
     public CreateEventRequestDTO(UUID animatorId, String title,
                                  LocalDateTime startDateTime,
