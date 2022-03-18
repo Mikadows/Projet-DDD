@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import use_case.exception.EventDateIsPastException;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -25,8 +26,10 @@ public class Schedule {
         return !(schedule.getStart().isAfter(getEnd()) || schedule.getEnd().isBefore(getStart()));
     }
 
-    public boolean isPast() {
-        return LocalDateTime.now().isAfter(getEnd());
+    public void isPast() {
+        if(LocalDateTime.now().isAfter(getEnd())){
+            throw new EventDateIsPastException();
+        }
     }
 
 }

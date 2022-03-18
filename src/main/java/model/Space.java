@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import use_case.exception.SpaceNotAvailableException;
 
 import java.util.Set;
 import java.util.UUID;
@@ -18,22 +19,18 @@ public class Space {
     private Set<Schedule> reservations;
     private Location location;
 
-    public boolean isAvailable(Schedule range) {
-        if(range.isPast()) return false;
-
-        boolean isAvailable = true;
+    public void isAvailable(Schedule range) {
+        range.isPast();
 
         for (Schedule reservation : reservations) {
             if (reservation.isOverlapping(range)) {
-                isAvailable = false;
-                break;
+                throw new SpaceNotAvailableException();
             }
         }
-
-        return isAvailable;
     }
 
     public void book(Schedule scheduleRange) {
+        isAvailable(scheduleRange);
         reservations.add(scheduleRange);
     }
 

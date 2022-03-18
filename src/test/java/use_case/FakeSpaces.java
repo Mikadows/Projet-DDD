@@ -30,7 +30,7 @@ public class FakeSpaces implements Spaces {
         return spaces.stream().filter(space -> space.getId().getSpaceID().equals(id)).findFirst();
     }
 
-    public void bookAvailability(Space space, Schedule Schedule) {
+    public void book(Space space, Schedule Schedule) {
 
     }
 }

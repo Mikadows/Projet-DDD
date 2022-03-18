@@ -2,16 +2,17 @@ package use_case;
 
 import infra.CreateEventRequestDTO;
 import model.*;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
+import use_case.exception.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class CreateEventTest {
     private Animators animators;
@@ -91,24 +92,28 @@ public class CreateEventTest {
     }
 
     @Test
-    public void create_event_not_null() {
+    public void create_event_does_not_throw_any_exception() {
         CreateEventRequestDTO fakeEvent = new CreateEventRequestDTO(UUID.fromString("809f0053-90f5-45f5-a725-09bd13e827c4"),
                 "Aymeric Anniversary", LocalDateTime.now().plusDays(25),
                 Duration.ofHours(1), UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa80eb85c71"));
 
-        Event createEvent = employe.create(fakeEvent);
-        assertNotNull(createEvent);
-        assertNotNull(createEvent.getId());
+        Assertions.assertThatCode(() -> employe.create(fakeEvent)).doesNotThrowAnyException();
     }
 
     @Test
-    public void create_event_animator_booked() {
+    public void create_event_animator_not_available() {
         CreateEventRequestDTO fakeEvent = new CreateEventRequestDTO(UUID.fromString("809f0053-90f5-45f5-a725-09bd13e827c4"),
                 "Aymeric Anniversary", LocalDateTime.now().plusDays(25),
                 Duration.ofHours(1), UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa80eb85c71"));
 
-        Event newEvent = employe.create(fakeEvent);
-        assertFalse(newEvent.getAnimator().isAvailable(newEvent.getSchedule()));
+        CreateEventRequestDTO fakeEvent2 = new CreateEventRequestDTO(UUID.fromString("809f0053-90f5-45f5-a725-09bd13e827c4"),
+                "Aymeric Anniversary", LocalDateTime.now().plusDays(25),
+                Duration.ofHours(1), UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa70eb85c71"));
+
+        Assertions.assertThatCode(() -> employe.create(fakeEvent)).doesNotThrowAnyException();
+        ThrowingCallable createEvent =
+                () -> employe.create(fakeEvent2);
+        assertThatExceptionOfType(AnimatorNotAvailableException.class).isThrownBy(createEvent);
     }
 
     @Test
@@ -117,7 +122,14 @@ public class CreateEventTest {
                 "Aymeric Anniversary", LocalDateTime.now().plusDays(25),
                 Duration.ofHours(1), UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa80eb85c71"));
 
-        Event newEvent = employe.create(fakeEvent);
-        assertFalse(newEvent.getSpace().isAvailable(newEvent.getSchedule()));
+        Assertions.assertThatCode(() -> employe.create(fakeEvent)).doesNotThrowAnyException();
+
+        CreateEventRequestDTO fakeEvent2 = new CreateEventRequestDTO(UUID.fromString("091b9ea5-b4ab-46cf-9e53-dee70eb85c71"),
+                "Aymeric Anniversary", LocalDateTime.now().plusDays(25),
+                Duration.ofHours(1), UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa80eb85c71"));
+
+        ThrowingCallable createEvent =
+                () -> employe.create(fakeEvent2);
+        assertThatExceptionOfType(SpaceNotAvailableException.class).isThrownBy(createEvent);
     }
 }
