@@ -22,7 +22,7 @@ public class CreateEvent {
 
         Event event = getEvent(animator, space, createEventRequestDTO);
 
-        animators.bookAvailability(event.getAnimator(), event.getSchedule());
+        animators.book(event.getAnimator(), event.getSchedule());
         spaces.bookAvailability(space, event.getSchedule());
         events.save(event);
 

@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Getter
 @RequiredArgsConstructor
-public class EventID {
-    private final UUID eventId;
+public class AnimatorID {
+    private final UUID animatorId;
 }
 

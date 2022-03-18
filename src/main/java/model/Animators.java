@@ -6,5 +6,5 @@ import java.util.UUID;
 public interface Animators {
 
     Optional<Animator> findById(UUID id);
-    void bookAvailability(Animator animator, Schedule schedule);
+    void book(Animator animator, Schedule schedule);
 }
