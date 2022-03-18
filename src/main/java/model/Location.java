@@ -1,16 +1,13 @@
 package model;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 @Builder
-@Getter
-@EqualsAndHashCode
 @ToString
+@RequiredArgsConstructor
 public class Location {
     private final String type;
+    private final String city;
     private final String street;
     private final Integer number;
     private final Integer zipCode;

@@ -17,13 +17,13 @@ public class CreateEvent {
     public Event create(CreateEventRequestDTO createEventRequestDTO) {
         Animator animator = animators.findById(createEventRequestDTO.getAnimatorId())
                 .orElseThrow(AnyAnimatorFoundException::new);
-        Space space = spaces.findById(createEventRequestDTO.getSpaceID())
+        Space space = spaces.findById(createEventRequestDTO.getSpaceId())
                 .orElseThrow(AnySpaceFoundException::new);
 
         Event event = getEvent(animator, space, createEventRequestDTO);
 
         animators.bookAvailability(event.getAnimator(), event.getSchedule());
-        spaces.bookAvailability(event.getSpace(), event.getSchedule());
+        spaces.bookAvailability(space, event.getSchedule());
         events.save(event);
 
         return event;

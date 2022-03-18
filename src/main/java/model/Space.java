@@ -6,15 +6,17 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
 public class Space {
+    private final SpaceID id;
     private final Integer capacity;
     private Set<Schedule> reservations;
-//    private Location location; maybe ??
+    private Location location;
 
     public boolean isAvailable(Schedule range) {
         if(range.isPast()) return false;
@@ -34,4 +36,6 @@ public class Space {
     public void book(Schedule scheduleRange) {
         reservations.add(scheduleRange);
     }
+
+
 }

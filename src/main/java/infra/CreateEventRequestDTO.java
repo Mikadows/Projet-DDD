@@ -14,5 +14,5 @@ public class CreateEventRequestDTO {
     private String title;
     private LocalDateTime startDateTime;
     private Duration duration;
-    private UUID spaceID;
+    private UUID spaceId;
 }
