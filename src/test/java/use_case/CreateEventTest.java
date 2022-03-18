@@ -50,7 +50,7 @@ public class CreateEventTest {
     public void create_event_with_space_not_found() {
         CreateEventRequestDTO fakeEvent = new CreateEventRequestDTO(UUID.fromString("091b9ea5-b4ab-46cf-9e53-dee70eb85c71"),
                 "Aymeric Anniversary", LocalDateTime.now().plusDays(10),
-                Duration.ofDays(2), UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa90eb85c71"));
+                Duration.ofDays(2), UUID.randomUUID());
         ThrowingCallable createEvent =
                 () -> organisator.create(fakeEvent);
 
@@ -72,7 +72,7 @@ public class CreateEventTest {
 
     @Test
     public void create_event_with_animator_not_found() {
-        CreateEventRequestDTO fakeEvent = new CreateEventRequestDTO(UUID.fromString("809f0054-90f5-45f5-a725-09bd13e827c4"),
+        CreateEventRequestDTO fakeEvent = new CreateEventRequestDTO(UUID.randomUUID(),
                 "Aymeric Anniversary", LocalDateTime.now().plusDays(8),
                 Duration.ofDays(2), UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa80eb85c71"));
         ThrowingCallable createEvent =
