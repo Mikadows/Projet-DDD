@@ -44,6 +44,9 @@ public class CreateEvent {
             throw new SpaceNotAvailableException();
         }
 
+        animator.book(eventSchedule);
+        space.book(eventSchedule);
+
         return Event.builder()
                 .id(new EventID(UUID.randomUUID()))
                 .animator(animator)

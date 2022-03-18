@@ -26,7 +26,6 @@ public class FakeAnimators implements Animators {
     }
 
     public void bookAvailability(Animator animator, Schedule schedule) {
-        animator.book(schedule);
         animators.replace(animator.getId(), animator);
     }
 }
