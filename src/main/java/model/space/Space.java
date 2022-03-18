@@ -14,19 +14,19 @@ public class Space {
         this.reservations = reservations;
     }
 
-    public void isAvailable(Schedule range) {
-        range.checkDateAnterior();
+    public void isAvailable(Schedule schedule) {
+        schedule.checkDateAnterior();
 
         for (Schedule reservation : reservations) {
-            if (reservation.isOverlapping(range)) {
+            if (reservation.isOverlapping(schedule)) {
                 throw new SpaceNotAvailableException();
             }
         }
     }
 
-    public void book(Schedule scheduleRange) {
-        isAvailable(scheduleRange);
-        reservations.add(scheduleRange);
+    public void book(Schedule schedule) {
+        isAvailable(schedule);
+        reservations.add(schedule);
     }
 
     public SpaceID getId() {

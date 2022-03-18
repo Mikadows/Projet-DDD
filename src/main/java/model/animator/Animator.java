@@ -14,19 +14,19 @@ public class Animator {
         this.busySchedules = busySchedules;
     }
 
-    public void isAvailable(Schedule range) {
-        range.checkDateAnterior();
+    public void isAvailable(Schedule schedule) {
+        schedule.checkDateAnterior();
 
         for (Schedule booked : busySchedules) {
-            if (booked.isOverlapping(range)) {
+            if (booked.isOverlapping(schedule)) {
                 throw new AnimatorNotAvailableException();
             }
         }
     }
 
-    public void book(Schedule scheduleRange) {
-        isAvailable(scheduleRange);
-        busySchedules.add(scheduleRange);
+    public void book(Schedule schedule) {
+        isAvailable(schedule);
+        busySchedules.add(schedule);
     }
 
     public AnimatorID getId() {
