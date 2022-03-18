@@ -8,6 +8,7 @@ public class Event {
     private final EventID id;
     private final Animator animator;
     private final Schedule schedule;
+    private StatusEvent status;
     private final Space space;
 
 
@@ -18,6 +19,7 @@ public class Event {
         space.book(eventSchedule);
 
         this.id = new EventID(UUID.randomUUID());
+        this.status = StatusEvent.CREATED;
         this.animator = animator;
         this.schedule = eventSchedule;
         this.space = space;
@@ -35,7 +37,5 @@ public class Event {
         return schedule;
     }
 
-    public Space getSpace() {
-        return space;
-    }
+
 }

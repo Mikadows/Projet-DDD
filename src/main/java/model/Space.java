@@ -13,7 +13,7 @@ public class Space {
         this.reservations = reservations;
     }
 
-    public void checkAvailability(Schedule range) {
+    public void isAvailable(Schedule range) {
         range.checkDateAnterior();
 
         for (Schedule reservation : reservations) {
@@ -24,7 +24,7 @@ public class Space {
     }
 
     public void book(Schedule scheduleRange) {
-        checkAvailability(scheduleRange);
+        isAvailable(scheduleRange);
         reservations.add(scheduleRange);
     }
 

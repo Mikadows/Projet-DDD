@@ -13,7 +13,7 @@ public class Animator {
         this.busySchedules = busySchedules;
     }
 
-    public void checkAvailability(Schedule range) {
+    public void isAvailable(Schedule range) {
         range.checkDateAnterior();
 
         for (Schedule booked : busySchedules) {
@@ -24,7 +24,7 @@ public class Animator {
     }
 
     public void book(Schedule scheduleRange) {
-        checkAvailability(scheduleRange);
+        isAvailable(scheduleRange);
         busySchedules.add(scheduleRange);
     }
 
