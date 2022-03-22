@@ -40,4 +40,4 @@ jobs:
 
       - name: liste files
         run: |
-          ls -l
+          ls -l reports/
