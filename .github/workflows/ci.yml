@@ -27,15 +27,24 @@ jobs:
             --failOnCVSS 7
             --enableRetired
 
-      - uses: pmd/pmd-github-action@v1
-        with:
-          rulesets: 'ruleset.xml'
-
       - name: Upload Test results
         uses: actions/upload-artifact@master
         with:
           name: Dependency-Check-Report
           path: ${{github.workspace}}/target/dependency-check-report
+
+      - name: Spotbugs
+        uses: jwgmeligmeyling/spotbugs-github-action@master
+        with:
+          path: 'reports/spotbugsXml.xml'
+      - name: PMD
+        uses: jwgmeligmeyling/pmd-github-action@master
+        with:
+          path: 'reports/pmd.xml'
+      - name: Checkstyle
+        uses: jwgmeligmeyling/checkstyle-github-action@master
+        with:
+          path: 'reports/checkstyle-result.xml'
 
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
