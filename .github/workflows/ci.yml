@@ -23,10 +23,15 @@ jobs:
           project: 'Project-DDD'
           report-dir: 'target/dependency-check-report'
           path: '.'
-          format: 'HTML'
+          format: 'HTML','XML','JSON'
           args: >
             --failOnCVSS 7
             --enableRetired
+
+      - name: list of files
+        run: |
+          ls -l reports/
+
       - name: Upload Test results
         uses: actions/upload-artifact@master
         with:
