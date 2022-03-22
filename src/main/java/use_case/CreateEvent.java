@@ -1,19 +1,25 @@
 package use_case;
 
 import infra.CreateEventRequestDTO;
-import lombok.RequiredArgsConstructor;
-import model.*;
-import use_case.exception.*;
+import model.animator.Animator;
+import model.animator.Animators;
+import model.event.Event;
+import model.event.Events;
+import model.space.Space;
+import model.space.Spaces;
+import use_case.exception.AnyAnimatorFoundException;
+import use_case.exception.AnySpaceFoundException;
 
-import java.util.ArrayList;
-import java.util.UUID;
-
-@RequiredArgsConstructor
 public class CreateEvent {
     private final Animators animators;
     private final Spaces spaces;
     private final Events events;
 
+    public CreateEvent(Animators animators, Spaces spaces, Events events) {
+        this.animators = animators;
+        this.spaces = spaces;
+        this.events = events;
+    }
 
     public Event create(CreateEventRequestDTO createEventRequestDTO) {
         Animator animator = animators.findById(createEventRequestDTO.getAnimatorId())
@@ -21,29 +27,13 @@ public class CreateEvent {
         Space space = spaces.findById(createEventRequestDTO.getSpaceId())
                 .orElseThrow(AnySpaceFoundException::new);
 
-        Event event = getEvent(animator, space, createEventRequestDTO);
+        Event event = new Event(animator, space,
+                createEventRequestDTO.getStartDateTime(), createEventRequestDTO.getDuration());
 
         animators.book(event.getAnimator(), event.getSchedule());
         spaces.book(space, event.getSchedule());
         events.save(event);
 
         return event;
-    }
-
-    private Event getEvent(Animator animator, Space space, CreateEventRequestDTO eventRequestDTO) {
-        Schedule eventSchedule = new Schedule(eventRequestDTO.getStartDateTime(), eventRequestDTO.getDuration());
-
-        animator.book(eventSchedule);
-        space.book(eventSchedule);
-
-        return Event.builder()
-                .id(new EventID(UUID.randomUUID()))
-                .animator(animator)
-                .isPublished(false)
-                .space(space)
-                .schedule(eventSchedule)
-                .title(eventRequestDTO.getTitle())
-                .participants(new ArrayList<>())
-                .build();
     }
 }
