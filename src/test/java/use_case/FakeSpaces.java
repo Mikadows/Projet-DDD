@@ -1,34 +1,36 @@
 package use_case;
 
-import model.ScheduleRange;
-import model.Space;
-import model.Spaces;
+import model.schedule.Schedule;
+import model.space.Space;
+import model.space.SpaceID;
+import model.space.Spaces;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 public class FakeSpaces implements Spaces {
-    private Set<Space> spaces;
+    private final Set<Space> spaces;
 
     public FakeSpaces() {
         spaces = new HashSet<>();
-        spaces.add(new Space(5, new HashSet<>()));
-        Set<ScheduleRange> scheduleRanges = new HashSet<>();
-        scheduleRanges.add(new ScheduleRange(LocalDateTime.parse("2022-03-17T22:26:02.575492900"), Duration.ofHours(1)));
-        scheduleRanges.add(new ScheduleRange(LocalDateTime.parse("2022-03-17T19:26:02.575492900"), Duration.ofHours(1)));
-        scheduleRanges.add(new ScheduleRange(LocalDateTime.parse("2022-03-17T18:00:00.575492900"), Duration.ofHours(1)));
-        spaces.add(new Space(6, scheduleRanges));
+        spaces.add(new Space(new SpaceID(UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa70eb85c71")),
+                new HashSet<>()));
+        Set<Schedule> scheduleRanges = new HashSet<>();
+        scheduleRanges.add(new Schedule(LocalDateTime.now().plusDays(10), Duration.ofHours(1)));
+        scheduleRanges.add(new Schedule(LocalDateTime.now().plusDays(15), Duration.ofHours(1)));
+        scheduleRanges.add(new Schedule(LocalDateTime.now().plusDays(20), Duration.ofHours(1)));
+        spaces.add(new Space(new SpaceID(UUID.fromString("091b9ea5-b4ab-46cf-9e53-daa80eb85c71")), scheduleRanges));
     }
 
-    public void display() {
-        System.out.println(spaces);
+    public Optional<Space> findById(UUID id) {
+        return spaces.stream().filter(space -> space.getId().getSpaceID().equals(id)).findFirst();
     }
 
-    @Override
-    public Space findById(UUID id) {
-        return null;
+    public void book(Space space, Schedule Schedule) {
+
     }
 }

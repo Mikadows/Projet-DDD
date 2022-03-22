@@ -1,16 +1,19 @@
 package use_case;
 
 import infra.CreateEventRequestDTO;
-import model.*;
-
-import java.util.ArrayList;
-import java.util.UUID;
+import model.animator.Animator;
+import model.animator.Animators;
+import model.event.Event;
+import model.event.Events;
+import model.space.Space;
+import model.space.Spaces;
+import use_case.exception.AnyAnimatorFoundException;
+import use_case.exception.AnySpaceFoundException;
 
 public class CreateEvent {
     private final Animators animators;
     private final Spaces spaces;
     private final Events events;
-
 
     public CreateEvent(Animators animators, Spaces spaces, Events events) {
         this.animators = animators;
@@ -19,38 +22,18 @@ public class CreateEvent {
     }
 
     public Event create(CreateEventRequestDTO createEventRequestDTO) {
-        // Get Animator from id
-        Animator animator = animators.findById(createEventRequestDTO.getAnimatorId());
-        // Get Space from id
-        Space space = spaces.findById(createEventRequestDTO.getSpaceID());
+        Animator animator = animators.findById(createEventRequestDTO.getAnimatorId())
+                .orElseThrow(AnyAnimatorFoundException::new);
+        Space space = spaces.findById(createEventRequestDTO.getSpaceId())
+                .orElseThrow(AnySpaceFoundException::new);
 
-        // Create ScheduleRange
-        ScheduleRange scheduleRange = new ScheduleRange(
+        Event event = new Event(animator, space,
                 createEventRequestDTO.getStartDateTime(), createEventRequestDTO.getDuration());
 
-        // Is the animator available ?
-        if (animator.isAvailable(scheduleRange)) {
-            // Book the animator
-            animator.book(scheduleRange);
-        }
-        // Is the space available ?
-        if (space.isAvailable(scheduleRange)) {
-            // Book the space
-            space.book(scheduleRange);
-        }
-
-        // Create event entity
-        Event event = Event.builder()
-                .id(new EventID(UUID.randomUUID()))
-                .animator(animator)
-                .isPublished(false)
-                .space(space)
-                .title(createEventRequestDTO.getTitle())
-                .participants(new ArrayList<>())
-                .build();
-
-        // save event
+        animators.book(event.getAnimator(), event.getSchedule());
+        spaces.book(space, event.getSchedule());
         events.save(event);
+
         return event;
     }
 }
