@@ -27,34 +27,28 @@ jobs:
           args: >
             --failOnCVSS 7
             --enableRetired
-
-      - name: Depcheck - XML
-        uses: dependency-check/Dependency-Check_Action@main
-        id: DepcheckXML
-        with:
-          project: 'Project-DDD'
-          report-dir: 'target/dependency-check-report'
-          path: '.'
-          format: 'XML'
-          args: >
-            --failOnCVSS 7
-            --enableRetired
-
-      - name: Depcheck - JSON
-        uses: dependency-check/Dependency-Check_Action@main
-        id: DepcheckJSON
-        with:
-          project: 'Project-DDD'
-          report-dir: 'target/dependency-check-report'
-          path: '.'
-          format: 'JSON'
-          args: >
-            --failOnCVSS 7
-            --enableRetired
-
-      - name: list of files
-        run: |
-          ls -l target/
+#      - name: Depcheck - XML
+#        uses: dependency-check/Dependency-Check_Action@main
+#        id: DepcheckXML
+#        with:
+#          project: 'Project-DDD'
+#          report-dir: 'target/dependency-check-report'
+#          path: '.'
+#          format: 'XML'
+#          args: >
+#            --failOnCVSS 7
+#            --enableRetired
+#      - name: Depcheck - JSON
+#        uses: dependency-check/Dependency-Check_Action@main
+#        id: DepcheckJSON
+#        with:
+#          project: 'Project-DDD'
+#          report-dir: 'target/dependency-check-report'
+#          path: '.'
+#          format: 'JSON'
+#          args: >
+#            --failOnCVSS 7
+#            --enableRetired
 
       - name: Upload Test results
         uses: actions/upload-artifact@master
