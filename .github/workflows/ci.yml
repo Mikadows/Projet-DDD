@@ -33,18 +33,21 @@ jobs:
           name: Dependency-Check-Report
           path: ${{github.workspace}}/target/dependency-check-report
 
-      - name: Spotbugs
-        uses: jwgmeligmeyling/spotbugs-github-action@master
+      - name: Build with Maven
+        run: mvn -B verify spotbugs:spotbugs
+      - uses: jwgmeligmeyling/spotbugs-github-action@master
         with:
-          path: 'reports/spotbugsXml.xml'
+          path: '**/spotbugsXml.xml'
       - name: PMD
-        uses: jwgmeligmeyling/pmd-github-action@master
+        run: mvn -B verify pmd:pmd
+      - uses: jwgmeligmeyling/pmd-github-action@master
         with:
-          path: 'reports/pmd.xml'
+          path: '**/pmd.xml'
       - name: Checkstyle
-        uses: jwgmeligmeyling/checkstyle-github-action@master
+        run: mvn -B verify checkstyle:checkstyle
+      - uses: jwgmeligmeyling/checkstyle-github-action@master
         with:
-          path: 'reports/checkstyle-result.xml'
+          path: '**/checkstyle-result.xml'
 
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
