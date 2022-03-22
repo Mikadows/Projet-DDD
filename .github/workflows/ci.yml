@@ -16,21 +16,45 @@ jobs:
         run: |
           mvn clean package
 
-      - name: Depcheck
+      - name: Depcheck - HTML
         uses: dependency-check/Dependency-Check_Action@main
         id: Depcheck
         with:
           project: 'Project-DDD'
           report-dir: 'target/dependency-check-report'
           path: '.'
-          format: 'HTML','XML','JSON'
+          format: 'HTML'
+          args: >
+            --failOnCVSS 7
+            --enableRetired
+
+      - name: Depcheck - XML
+        uses: dependency-check/Dependency-Check_Action@main
+        id: Depcheck
+        with:
+          project: 'Project-DDD'
+          report-dir: 'target/dependency-check-report'
+          path: '.'
+          format: 'XML'
+          args: >
+            --failOnCVSS 7
+            --enableRetired
+
+      - name: Depcheck - JSON
+        uses: dependency-check/Dependency-Check_Action@main
+        id: Depcheck
+        with:
+          project: 'Project-DDD'
+          report-dir: 'target/dependency-check-report'
+          path: '.'
+          format: 'JSON'
           args: >
             --failOnCVSS 7
             --enableRetired
 
       - name: list of files
         run: |
-          ls -l reports/
+          ls -l target/
 
       - name: Upload Test results
         uses: actions/upload-artifact@master
