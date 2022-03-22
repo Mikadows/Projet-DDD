@@ -86,6 +86,12 @@
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>3.2.2</version>
             </plugin>
+
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
             <!-- QA Analysis -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -101,8 +107,12 @@
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.5.3.0</version>
+                <configuration>
+                    <xmlOutput>true</xmlOutput>
+                    <xmlOutputDirectory>target/site</xmlOutputDirectory>
+                </configuration>
             </plugin>
         </plugins>
-    </build>
+    </reporting>
 
 </project>
