@@ -18,7 +18,7 @@ jobs:
 
       - name: Depcheck - HTML
         uses: dependency-check/Dependency-Check_Action@main
-        id: Depcheck
+        id: DepcheckHTML
         with:
           project: 'Project-DDD'
           report-dir: 'target/dependency-check-report'
@@ -30,7 +30,7 @@ jobs:
 
       - name: Depcheck - XML
         uses: dependency-check/Dependency-Check_Action@main
-        id: Depcheck
+        id: DepcheckXML
         with:
           project: 'Project-DDD'
           report-dir: 'target/dependency-check-report'
@@ -42,7 +42,7 @@ jobs:
 
       - name: Depcheck - JSON
         uses: dependency-check/Dependency-Check_Action@main
-        id: Depcheck
+        id: DepcheckJSON
         with:
           project: 'Project-DDD'
           report-dir: 'target/dependency-check-report'
