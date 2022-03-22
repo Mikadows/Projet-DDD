@@ -21,6 +21,7 @@ jobs:
         id: Depcheck
         with:
           project: 'Project-DDD'
+          report-dir: 'target/dependency-check-report'
           path: '.'
           format: 'HTML'
           args: >
@@ -29,8 +30,8 @@ jobs:
       - name: Upload Test results
         uses: actions/upload-artifact@master
         with:
-          name: Depcheck report
-          path: ${{github.workspace}}/reports
+          name: Dependency-Check-Report
+          path: ${{github.workspace}}/target/dependency-check-report
 
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
