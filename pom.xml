@@ -12,6 +12,7 @@
         <assertj.version>3.22.0</assertj.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -27,7 +28,6 @@
             <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
@@ -61,7 +61,6 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <!-- latest version (2.20.1) does not work well with JUnit5 -->
                 <version>2.19.1</version>
                 <dependencies>
                     <dependency>
@@ -92,7 +91,7 @@
 
     <reporting>
         <plugins>
-            <!-- QA Analysis -->
+            <!-- Quality Acceptance Analysis -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
